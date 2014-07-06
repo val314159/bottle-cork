@@ -38,4 +38,7 @@ setup(
     platforms=['Linux'],
     test_suite='nose.collector',
     tests_require=['nose'],
+    package_data={'': [
+        'tests/*',
+    ]},
 )
