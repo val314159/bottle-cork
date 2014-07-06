@@ -4,30 +4,23 @@ python:
   - "2.7"
   # - "3.2" Temporary disabling Python3
 install:
-  - pip install MySQL-python
-  - pip install SQLAlchemy
-  - pip install coveralls
-  - pip install flask
-  - pip install pymongo
-  - pip install scrypt
-  - pip install webtest
-  - pip install -e .
+  - pip install -e . --use-mirrors
+  - pip install MySQL-python --use-mirrors
+  - pip install SQLAlchemy --use-mirrors
+  - pip install coveralls --use-mirrors
+  - pip install flask --use-mirrors
+  - pip install pymongo --use-mirrors
+  - pip install scrypt --use-mirrors
+  - pip install webtest --use-mirrors
 
 before_script:
   - mysql -e 'create database myapp_test;' # username: "root", password: ""
   #- mongo mydb_test --eval 'db.addUser("travis", "test");'
 
 script:
+  - nosetests tests/test.py tests/test_functional_mysql_instance.py tests/test_functional_mongodb_instance.py
+  - coverage run --source=cork tests/test_functional_decorated.py tests/test_functional_sqlalchemy_sqlite_in_memory.py tests/test_functional.py tests/test_sqlite.py tests/test_functional_mongodb_instance.py
 
-- nosetests \
-    tests/test_functional_mongodb_instance.py
-    tests/test_functional_mysql_instance.py \
-
-- coverage run --source=cork \
-    tests/test_functional_decorated.py \
-    tests/test_functional_mongodb_instance.py
-    tests/test_functional_sqlalchemy_sqlite_in_memory.py \
-    tests/test_sqlite.py
 
 services:
   # MySQL is started by default
