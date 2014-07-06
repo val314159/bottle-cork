@@ -20,12 +20,10 @@ before_script:
 script:
 
 - nosetests \
-    tests/test.py \
     tests/test_functional_mongodb_instance.py
     tests/test_functional_mysql_instance.py \
 
 - coverage run --source=cork \
-    tests/test_functional.py \
     tests/test_functional_decorated.py \
     tests/test_functional_mongodb_instance.py
     tests/test_functional_sqlalchemy_sqlite_in_memory.py \
