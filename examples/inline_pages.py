@@ -38,12 +38,9 @@ def populate_backend():
     return b
 
 b = populate_backend()
-#aaa = Cork(backend=b, email_sender='federico.ceratto@gmail.com', smtp_url='smtp://smtp.magnet.ie')
-#aaa = Cork(backend=b, email_sender='jennifer@ccl.io',
-#           smtp_url='starttls://postmaster@ccl.io:d7783effabc6a96d6727ec295afd11a3@smtp.mailgun.com:587')
 from os import environ as E
 aaa = Cork(backend=b, email_sender=E['EMAIL_SENDER'], smtp_url=E['SMTP_URL'])
-
+aaa.isolation_level=None
 
 
 app = bottle.app()
